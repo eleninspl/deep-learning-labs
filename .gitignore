@@ -1,0 +1,17 @@
+# Jupyter / Colab
+.ipynb_checkpoints/
+
+# Outputs written when the notebooks are run locally
+runs/
+logs/
+trainer_run_*/
+data/
+*.pth
+*.pth.tar
+
+# Python
+__pycache__/
+.venv/
+
+# macOS
+.DS_Store
