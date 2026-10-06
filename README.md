@@ -4,16 +4,12 @@ Two deep learning lab projects written as Google Colab notebooks in PyTorch and 
 
 The labs are my solutions to the lab projects of **Neural Networks and Deep Learning** (Νευρωνικά Δίκτυα και Βαθιά Μάθηση), an 8th-semester course at the School of Electrical and Computer Engineering, National Technical University of Athens (ECE NTUA), academic year 2024–25.
 
-The repository also contains my written solutions to the two homework sets of **Machine Learning** (Μηχανική Μάθηση), a 7th-semester course at ECE NTUA in the same academic year. They are mostly derivations, with the Python code used for the numerical parts included in each PDF.
-
 | Part | Files | Topic | Main tools |
 |------|-------|-------|------------|
 | [Lab 1](#lab-1-wide-resnets-and-mixup-on-cifar-10) | `lab1/NNDL25_labproject1_…ipynb` | Image classification and robustness to corruptions | PyTorch, torchvision, Wide ResNet, MixUp |
 | [Lab 2](#lab-2-pretrained-transformers) | `lab2/NNDL25_labproject2_…ipynb` | Fine-tuning and zero-shot evaluation of language models | Transformers, Datasets, Sentence Transformers |
-| [Homework 1](#machine-learning-homework-1) | `hwk1/ML24_hwk1_…pdf` | Least squares, Gaussians, Bayes classifier, MLP, kernels | NumPy, SciPy, Matplotlib |
-| [Homework 2](#machine-learning-homework-2) | `hwk2/ML24_hwk2_…pdf` | Decision trees, k-means, hierarchical clustering, PCA, MDPs | NumPy, pandas, scikit-learn, SciPy |
 
-All notebooks and reports are written in Greek. The code and printed results are mostly in English.
+The notebooks' explanations and comments are written in Greek. The code and printed results are mostly in English.
 
 ## Getting started
 
@@ -120,29 +116,9 @@ Larger models did clearly better on PIQA, the clearest result of part B. Truthfu
 
 Upload the notebook to Colab with a GPU runtime and run it top to bottom. It downloads the datasets and models from the Hugging Face Hub. The largest model, `EleutherAI/gpt-neo-1.3B`, is a 5.3 GB download. Newer versions of the `datasets` library no longer accept the short dataset names the notebook uses; see [Known limitations](#known-limitations).
 
-## Machine Learning homework 1
-
-Written solutions (`hwk1/ML24_hwk1_03121087_NasopoulouEleni.pdf`) to five exercises:
-
-1. **Least squares estimation**: For a linear model with Gaussian noise, derive the distribution of the outputs and the least-squares estimator. Show that the estimator is unbiased and find its covariance, and show that the fitted values are a projection onto the column space of the design matrix.
-2. **Bivariate Gaussian**: Find the joint and conditional densities, compute conditional probabilities, and plot an equal-density contour.
-3. **Bayes classifier with three classes**: For three Gaussian classes with a shared covariance, compute the posteriors for a test point, derive the linear decision boundaries, plot 500 samples per class, and estimate the error rate for class ω₂ by simulation (about 2%).
-4. **MLP for a three-class XOR**: Design by hand a network with step activations that computes `(x₁ + x₂) mod 3` for inputs in {0, 1, 2}. The solution uses 4 hidden and 3 output neurons and checks all 9 inputs in code.
-5. **Kernels and SVMs**: Show that kernels are symmetric, that RBF feature vectors are at most √2 apart, and that an RBF SVM's output tends to its bias far from the training data.
-
-## Machine Learning homework 2
-
-Written solutions (`hwk2/ML24_hwk2_03121087_NasopoulouEleni.pdf`) to five exercises:
-
-1. **Decision trees and random forests**: Build a Gini decision tree by hand, find a smaller tree with the same accuracy, and train a three-tree random forest.
-2. **k-means**: Run k-means by hand on 8 points. Implement it from scratch and apply it to the Iris dataset: 89.3% success rate with all four features and 94.7% with petal length and width only.
-3. **Hierarchical clustering**: Show that `1 − cos θ` is a dissimilarity measure but not a metric, then run single-linkage and complete-linkage clustering with it and draw the dendrograms.
-4. **PCA**: Derive with Lagrange multipliers that the principal directions are the top eigenvectors of the covariance matrix, and find the fraction of variance they explain.
-5. **Markov decision process**: Model a 4×4 grid world with a goal and a trap, write the Bellman equation, and compute the value of the start state under a policy that heads straight to the goal (1.219 for γ = 0.9).
-
 ## Known limitations
 
-The notebooks are kept exactly as submitted. While writing this README, I reviewed them again and found the issues below. They do not stop the notebooks from showing the results above, but they matter if you reuse the code or compare the numbers.
+The notebooks are kept as submitted, apart from removing widget metadata from lab 2 so that GitHub can display it. While writing this README, I reviewed them again and found the issues below. They do not stop the notebooks from showing the results above, but they matter if you reuse the code or compare the numbers.
 
 **Lab 1**
 
@@ -155,7 +131,6 @@ The notebooks are kept exactly as submitted. While writing this README, I review
 
 **Lab 2**
 
-- GitHub cannot display the lab 2 notebook ("the 'state' key is missing from 'metadata.widgets'"). Colab and Jupyter open it normally.
 - With current versions of `datasets` and `huggingface_hub`, the short dataset names (`yelp_polarity`, `piqa`, `truthful_qa`, `winogrande`) fail to load. The namespaced names `fancyzhx/yelp_polarity`, `truthfulqa/truthful_qa` and `allenai/winogrande` work. PIQA (`ybisk/piqa`) still uses a loading script, so it needs `datasets<4` and `trust_remote_code=True`.
 - In part A, all eight configurations train the same model object, so each run starts from the weights of the run before it. The table is not a comparison of independent runs. The scheduler's step count also uses floor division, so the learning rate reaches zero slightly before training ends.
 - In TruthfulQA, choosing the best answer itself counts as correct only when the same text also appears as one of the first two correct answers. This is true for 76 of the 100 questions. With a 0.95 threshold, the similarity check accepts almost only identical texts, which is why the six similarity models give nearly the same accuracy.
@@ -163,6 +138,6 @@ The notebooks are kept exactly as submitted. While writing this README, I review
 
 ## For students taking the course
 
-This repository is here to help you understand the material: how the techniques are used in practice and what results to expect at this small scale. Write your own solutions. The Machine Learning homework sets state that solutions must be individual work, and copied work defeats the purpose of the labs. The limitations above are also a list of mistakes worth avoiding in your own code.
+This repository is here to help you understand the material: how the techniques are used in practice and what results to expect at this small scale. Write your own solutions: copied work defeats the purpose of the labs. The limitations above are also a list of mistakes worth avoiding in your own code.
 
 The original papers are the best reference for lab 1: *Wide Residual Networks* (Zagoruyko & Komodakis, 2016), *mixup: Beyond Empirical Risk Minimization* (Zhang et al., 2018) and *Benchmarking Neural Network Robustness to Common Corruptions and Perturbations* (Hendrycks & Dietterich, 2019). For lab 2, the Hugging Face course and documentation cover every API used.
